@@ -1,24 +1,45 @@
-const Classroom = require("../models/classroom.js");
+const express = require("express");
+const router = express.Router();
+const db = require("../db");
 
-exports.create = (req, res) => {
-  // Validate request
-  if (!req.body.Class_Number) {
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
+
+router.post('/classrooms', (req, res) => {
+  try {
+
+    const { classNumber, capacity } = req.body
+    console.log(req.body)
+
+    db.query(
+      "INSERT INTO classroom (class_number,capacity) VALUES(?,?)",
+      [classNumber, capacity],
+      (error, result) => {
+        if (error) {
+          console.log(error);
+          return res.json({
+            status: 401,
+            success: false,
+            message: error,
+          });
+        }
+        console.log("class created successfully");
+        return res.json({
+          status: 201,
+          success: true,
+          message: result ,
+        });
+      }
+    );
+
+   
+  } catch (error) {
+    return res.status(500).json({
+      messaage: "errror"
+    })
   }
+})
 
-  // Create a Classroom
-  const classroom = new Classroom({
-    Class_Number: req.body.Class_Number
-  });
 
-  // Save Classroom in the database
-  Classroom.create(classroom, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Classroom."
-      });
-    else res.send(data);
-  });
-};
+
+
+
+module.exports = router;

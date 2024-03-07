@@ -2,28 +2,38 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BenchesForm = () => {
-  const [classrooms, setClassrooms] = useState([]);
-  const [selectedClassroom, setSelectedClassroom] = useState('');
-  const [left, setLeft] = useState('');
-  const [center, setCenter] = useState('');
-  const [right, setRight] = useState('');
+  const [benchData, setBenchData] = useState({
+    classrooms: [], 
+    selectedClassroom: "",
+    left: "",
+    center: "",
+    right: ""
+  });
 
-  useEffect(() => {
-    axios.get('http://localhost:3000/api/classrooms')
+  const handleGet = () => {
+    axios.get('http://localhost:4000/api/getclassNumbers')
       .then(response => {
-        setClassrooms(response.data);
+        setBenchData(response.data);
       })
       .catch(error => {
         console.error('Error:', error);
-        // Handle error
+        
       });
-  }, []);
+  };
 
-  const handleSave = () => {
-    axios.post('http://localhost:3000/api/benches', { Left: left, Center: center, Right: right, CId: selectedClassroom })
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setBenchData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSave = async () => {
+    await axios.post('http://localhost:4000/api/createbenches', benchData)
       .then(response => {
         console.log(response.data);
-        // Add any success message or redirect to next page
+        // Add any success message or redirect to the next page
       })
       .catch(error => {
         console.error('Error:', error);
@@ -33,15 +43,15 @@ const BenchesForm = () => {
 
   return (
     <div>
-      <select value={selectedClassroom} onChange={(e) => setSelectedClassroom(e.target.value)}>
+      <select value={benchData.selectedClassroom} onChange={handleInputChange} name="selectedClassroom">
         <option value="">Select Classroom</option>
-        {classrooms.map(classroom => (
-          <option key={classroom.id} value={classroom.id}>{classroom.Class_Number}</option>
+        {benchData.classrooms.map(classroom => (
+          <option key={classroom.id} value={classroom.id}>{classroom.class_number}</option>
         ))}
       </select>
-      <input type="text" value={left} onChange={(e) => setLeft(e.target.value)} />
-      <input type="text" value={center} onChange={(e) => setCenter(e.target.value)} />
-      <input type="text" value={right} onChange={(e) => setRight(e.target.value)} />
+      <input type="text" name="left" value={benchData.left} onChange={handleInputChange} />
+      <input type="text" name="center" value={benchData.center} onChange={handleInputChange} />
+      <input type="text" name="right" value={benchData.right} onChange={handleInputChange} />
       <button onClick={handleSave}>Enter</button>
     </div>
   );
