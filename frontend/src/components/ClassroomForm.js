@@ -20,7 +20,7 @@ const ClassroomForm = () => {
 
   const handleSave = async() => {
     
-   await axios.post('http://localhost:4000/api/classrooms',formaData)
+   await axios.post('http://localhost:4000/api/classroom/classrooms',formaData)
       .then(response => {
         console.log(response.data);
         // Add any success message or redirect to next page

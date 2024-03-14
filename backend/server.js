@@ -20,9 +20,10 @@ app.use(cors());
 // app.use("/api/classrooms", classroomRoutes);
 
 // Port
-app.use('/api',classroomController)
-app.use('/api',benchesController)
-5
+app.use('/api/benches',benchesController)
+app.use('/api/classroom',classroomController)
+
+
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

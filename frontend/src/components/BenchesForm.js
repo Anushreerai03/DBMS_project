@@ -1,24 +1,29 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BenchesForm = () => {
   const [benchData, setBenchData] = useState({
-    classrooms: [], 
     selectedClassroom: "",
     left: "",
     center: "",
     right: ""
   });
 
-  const handleGet = () => {
-    axios.get('http://localhost:4000/api/getclassNumbers')
-      .then(response => {
-        setBenchData(response.data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        
-      });
+  const [classrooms, setClassrooms] = useState([]);
+
+  useEffect(() => {
+    handleGet();
+  }, []); // This ensures that handleGet is called only once when the component mounts
+
+  const handleGet = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/benches/getclassNumbers');
+      const classNumbers = response.data;
+      setClassrooms(classNumbers);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -30,23 +35,22 @@ const BenchesForm = () => {
   };
 
   const handleSave = async () => {
-    await axios.post('http://localhost:4000/api/createbenches', benchData)
-      .then(response => {
-        console.log(response.data);
-        // Add any success message or redirect to the next page
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // Handle error
-      });
+    try {
+      await axios.post('http://localhost:4000/api/benches/createbenches', benchData);
+      // console.log("Bench data saved successfully");
+      // Add any success message or redirect to the next page
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error
+    }
   };
 
   return (
     <div>
       <select value={benchData.selectedClassroom} onChange={handleInputChange} name="selectedClassroom">
         <option value="">Select Classroom</option>
-        {benchData.classrooms.map(classroom => (
-          <option key={classroom.id} value={classroom.id}>{classroom.class_number}</option>
+        {classrooms.map((classroom, index) => (
+          <option key={index} value={classroom}>{classroom}</option>
         ))}
       </select>
       <input type="text" name="left" value={benchData.left} onChange={handleInputChange} />
