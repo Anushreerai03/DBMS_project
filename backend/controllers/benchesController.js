@@ -15,17 +15,17 @@ router.post("/createbenches", (req, res) => {
   // console.log("Hello")
 
   // Create Benches
-  const { Left, Center, Right, CId } = req.body;
-  const query = "INSERT INTO seating_arrangement.benches (left_bench, right_row, middle_row, c_id) VALUES (?, ?, ?, ?)";
+  const { left, center, right, selectedClassroom } = req.body;
+  const query = "INSERT INTO seating_arrangement.benches (left_bench, right_row, middle_row, class_number) VALUES (?, ?, ?, ?)";
 
-  db.query(query, [Left, Center, Right, CId], (err, result) => {
+  db.query(query, [left, center, right, selectedClassroom], (err, result) => {
     if (err) {
       console.error("Error creating benches:", err);
       res.status(500).send({ message: "An error occurred while creating the benches." });
       return;
     }
     console.log("Benches created successfully.");
-    res.json({ id: result.insertId, Left, Center, Right, CId });
+    res.json({ id: result.insertId, left, center, right, selectedClassroom });
   });
 
  } catch (error) {

@@ -1,10 +1,12 @@
 const express = require("express");
 const benchesController  = require("./controllers/benchesController")
 const classroomController = require("./controllers/classroomController")
+const seatingArrangementController = require("./controllers/seatingArrangementController")
 
 
 // const bodyParser = require("body-parser");
 const cors = require("cors");
+//const { default: SeatingArrangementForm } = require("../frontend/src/components/SeatingArrangementForm");
 // const classroomRoutes = require("./routes/classroomRoutes.js");
 
 const app = express();
@@ -20,6 +22,7 @@ app.use(cors());
 // app.use("/api/classrooms", classroomRoutes);
 
 // Port
+app.use('/api/seating',seatingArrangementController)
 app.use('/api/benches',benchesController)
 app.use('/api/classroom',classroomController)
 

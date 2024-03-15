@@ -5,6 +5,7 @@ import BenchesForm from './components/BenchesForm';
 import SeatingArrangementForm from './components/SeatingArrangementForm';
 import FacultyForm from './components/FacultyForm';
 
+
 const App = () => {
   return (
     <BrowserRouter>

@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
+
 const BenchesForm = () => {
   const [benchData, setBenchData] = useState({
     selectedClassroom: "",
@@ -35,6 +37,7 @@ const BenchesForm = () => {
   };
 
   const handleSave = async () => {
+    console.log("This is bench data",benchData);
     try {
       await axios.post('http://localhost:4000/api/benches/createbenches', benchData);
       // console.log("Bench data saved successfully");
