@@ -40,6 +40,31 @@ router.post('/classrooms', (req, res) => {
 
 
 
+router.get('/classrooms', (req, res) => {
+  db.query(
+    "SELECT class_number, capacity FROM classroom",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).json({
+          status: 500,
+          success: false,
+          message: "Error retrieving classrooms",
+          error: error
+        });
+      }
+      return res.status(201).json({
+        success:true,
+        data:results
+      })
+      console.log("Data retrieved successfully");
+      return res.status(200).json(results);
+    }
+  );
+});
+
+
+
 
 
 module.exports = router;

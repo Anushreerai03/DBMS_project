@@ -9,6 +9,11 @@ function SeatingArrangementForm() {
     const [middleRow, setMiddleRow] = useState({ from: '', to: '' });
     const [leftRow, setLeftRow] = useState({ from: '', to: '' });
 
+    console.log(classroomNumber)
+    console.log(rightRow)
+    console.log(middleRow)
+    console.log(leftRow)
+
     const handleClassroomNumberChange = (event) => {
         setClassroomNumber(event.target.value);
     };
