@@ -63,6 +63,38 @@ router.get('/classrooms', (req, res) => {
   );
 });
 
+router.delete('/classrooms/:classNumber', (req, res) => {
+  try {
+    const classNumber = req.params.classNumber;
+    db.query(
+      "DELETE FROM classroom WHERE class_number = ?",
+      [classNumber],
+      (error, result) => {
+        if (error) {
+          console.log(error);
+          return res.json({
+            status: 401,
+            success: false,
+            message: error,
+          });
+        }
+        console.log("Classroom deleted successfully");
+        return res.json({
+          status: 200,
+          success: true,
+          message: "Classroom deleted successfully",
+        });
+      }
+    );
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error deleting classroom",
+      error: error
+    });
+  }
+});
+
+
 
 
 
