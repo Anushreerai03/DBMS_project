@@ -5,17 +5,10 @@ const { classNumber, capacity } = require("./classroomController");
 
 // Create Benches
 router.post("/createbenches", (req, res) => {
-  // Validate request
- 
-  // if (!req.body.Left || !req.body.Center || !req.body.Right || !req.body.x) {
-  //   res.status(400).send({ message: "Content cannot be empty!" });
-  
   try{
-
-  // console.log("Hello")
-
   // Create Benches
   const { left, center, right, selectedClassroom } = req.body;
+  
   const query = "INSERT INTO seating_arrangement.benches (left_bench, right_row, middle_row, class_number) VALUES (?, ?, ?, ?)";
 
   db.query(query, [left, center, right, selectedClassroom], (err, result) => {

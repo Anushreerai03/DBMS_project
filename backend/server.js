@@ -2,6 +2,7 @@ const express = require("express");
 const benchesController  = require("./controllers/benchesController")
 const classroomController = require("./controllers/classroomController")
 const seatingArrangementController = require("./controllers/seatingArrangementController")
+const facultyController = require("./controllers/facultyController")
 
 
 // const bodyParser = require("body-parser");
@@ -25,6 +26,7 @@ app.use(cors());
 app.use('/api/seating',seatingArrangementController)
 app.use('/api/benches',benchesController)
 app.use('/api/classroom',classroomController)
+app.use('/api/faculty',facultyController)
 
 
 const PORT = process.env.PORT || 4000

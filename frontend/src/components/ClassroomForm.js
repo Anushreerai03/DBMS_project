@@ -74,7 +74,7 @@ const ClassroomForm = () => {
 
   return (
     <>
-    <div className="flex justify-between h-screen bg-sage-gray">
+    <div className="flex justify-between h-screen bg-sage-gray">  
       <div className="flex flex-col justify-center items-center w-1/2">
         <div className="bg-teal-600 rounded-lg shadow-lg p-6">
           <h1 className='text-black text-3xl mb-4'>Enter Classroom Details</h1>

@@ -5,6 +5,7 @@ import BenchesForm from './components/BenchesForm';
 import SeatingArrangementForm from './components/SeatingArrangementForm';
 import FacultyForm from './components/FacultyForm';
 import Search from './components/search';
+import SearchFaculty from './components/SearchFaculty';
 import Layout from './components/layout';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/seating-arrangement" element={<SeatingArrangementForm />} />
         <Route path="/faculty" element={<FacultyForm />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/searchFaculty" element={<SearchFaculty />} />
         </Route>
         
       </Routes>
